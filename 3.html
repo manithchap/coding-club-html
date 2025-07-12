@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Modern Dark Portfolio</title>
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            color: #e0e6ed;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Navigation */
+        .nav-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-title {
+            color: #fff;
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+            font-weight: 300;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Header Section */
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .profile-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            margin-bottom: 20px;
+            object-fit: cover;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            color: white;
+            font-weight: 300;
+        }
+
+        .header p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.1em;
+        }
+
+        /* Content Sections */
+        .section {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .section h2 {
+            color: #64b5f6;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            font-weight: 300;
+            border-bottom: 2px solid rgba(100, 181, 246, 0.3);
+            padding-bottom: 10px;
+        }
+
+        .highlight {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 600;
+        }
+
+        .intro-text {
+            font-size: 1.1em;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        /* Lists */
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 12px 18px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            border-left: 4px solid #64b5f6;
+            transition: all 0.3s ease;
+        }
+
+        li:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(5px);
+        }
+
+        /* Gallery */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .gallery-item {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
+
+        .gallery-img {
+            width: 100%;
+            height: 150px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2em;
+            font-weight: 300;
+        }
+
+        .gallery-caption {
+            padding: 15px;
+            text-align: center;
+        }
+
+        .gallery-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #64b5f6;
+        }
+
+        /* Contact */
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .contact-item {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .contact-link {
+            color: #64b5f6;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .contact-link:hover {
+            color: #90caf9;
+        }
+
+        /* Footer */
+        .footer {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            margin-top: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer p {
+            margin-bottom: 10px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .back-to-top {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .nav-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .nav-btn {
+                width: 100%;
+                max-width: 200px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+<!-- Navigation -->
+<div class="nav-container">
+<div class="nav-title">Site Navigation</div>
+<div class="nav-buttons">
+<a class="nav-btn" href="#about">About Me</a>
+<a class="nav-btn" href="#interests">My Interests</a>
+<a class="nav-btn" href="#goals">My Goals</a>
+<a class="nav-btn" href="#gallery">Photo Gallery</a>
+<a class="nav-btn" href="#contact">Contact</a>
+</div>
+</div>
+<!-- Header -->
+<div class="header" id="about">
+<img alt="Profile" class="profile-img" src="https://cambodianess.com/uploads/images/16380866911rwxu-photo-2021-11-26-08-10-53.jpg"/>
+<h1>About Me</h1>
+<p>Welcome to my personal website!</p>
+</div>
+<!-- Introduction -->
+<div class="section">
+<h2>Introduction</h2>
+<p class="intro-text">Hello! My name is <span class="highlight">Your Name</span> and I am a student learning web development. Welcome to my first HTML page!</p>
+<p class="intro-text">I am <span class="highlight">16 years old</span> and I love <span class="highlight">Web Development</span>. I am currently studying <span class="highlight">Web Technologies</span> and I'm excited to learn more about creating websites.</p>
+</div>
+<!-- Interests -->
+<div class="section" id="interests">
+<h2>My Interests</h2>
+<p>Some things I love to do include:</p>
+<ul>
+<li>Digital art and design</li>
+<li>Learning new technologies</li>
+<li>Creating and building things</li>
+<li>Chat your own interests with dad</li>
+<li>Add another interest</li>
+</ul>
+</div>
+<!-- Goals -->
+<div class="section" id="goals">
+<h2>My Goals</h2>
+<p>By the end of this course, I hope to:</p>
+<ul>
+<li>Create a beautiful website with CSS</li>
+<li>Deploy my digital artwork online</li>
+<li>Learn the basics of web development</li>
+<li>Build a portfolio I can share with others</li>
+<li>Connect with other web developers online</li>
+</ul>
+</div>
+<!-- Gallery -->
+<div class="section" id="gallery">
+<h2>Photo Gallery</h2>
+<p>Here are some images that represent my interests:</p>
+<div class="gallery">
+<div class="gallery-item">
+<div class="gallery-img">🎨</div>
+<div class="gallery-caption">
+<div class="gallery-title">My Digital Art</div>
+<p>One of my recent digital art creations</p>
+</div>
+</div>
+<div class="gallery-item">
+<div class="gallery-img">💻</div>
+<div class="gallery-caption">
+<div class="gallery-title">My Workspace</div>
+<p>Where the magic happens!</p>
+</div>
+</div>
+<div class="gallery-item">
+<div class="gallery-img">💡</div>
+<div class="gallery-caption">
+<div class="gallery-title">Inspiration</div>
+<p>Things that inspire my creativity</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Fun Facts -->
+<div class="section">
+<h2>Fun Facts About Me</h2>
+<ul>
+<li>My favorite color is <span class="highlight">Ocean Blue</span></li>
+<li>I have been coding myself for <span class="highlight">2 years</span></li>
+<li>My favorite digital art tool is <span class="highlight">Procreate</span></li>
+<li>You can find my work at <span class="highlight">Dev Portfolio Lady</span></li>
+<li>I love cats and dogs</li>
+</ul>
+</div>
+<!-- Resources -->
+<div class="section">
+<h2>Useful Resources</h2>
+<p>Here are some websites that help me learn:</p>
+<ul>
+<li><a class="contact-link" href="#">W3Schools - HTML Tutorial</a></li>
+<li><a class="contact-link" href="#">MDN Web Docs</a></li>
+<li><a class="contact-link" href="#">Codecademy</a></li>
+<li><a class="contact-link" href="#">FreeCodeCamp</a></li>
+</ul>
+</div>
+<!-- Contact -->
+<div class="section" id="contact">
+<h2>Contact Information</h2>
+<div class="contact-info">
+<div class="contact-item">
+<strong>Email:</strong><br/>
+<a class="contact-link" href="mailto:info@email.com">info@email.com</a>
+</div>
+<div class="contact-item">
+<strong>School:</strong><br/>
+<span class="highlight">Your School Name</span>
+</div>
+<div class="contact-item">
+<strong>Social Media:</strong><br/>
+<a class="contact-link" href="#">Twitter</a> |
+                    <a class="contact-link" href="#">Instagram</a> |
+                    <a class="contact-link" href="#">GitHub</a>
+</div>
+</div>
+</div>
+<!-- Coming Soon -->
+
+<!-- Footer -->
+<div class="footer">
+<p>This page was created by <span class="highlight">Your Name</span> as part of my web development learning journey.</p>
+<p>Last updated: <span class="highlight">Today's Date</span></p>
+<a class="back-to-top" href="#">Back to Top</a>
+</div>
+</div>
+<script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Add scroll effect to sections
+        const sections = document.querySelectorAll('.section');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        });
+
+        sections.forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(20px)';
+            section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>

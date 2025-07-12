@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyberpunk Portfolio</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Orbitron', monospace;
+            background: #0a0a0a;
+            color: #00ff88;
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Animated background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 25% 25%, #ff00ff22 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, #00ffff22 0%, transparent 50%),
+                linear-gradient(45deg, #000000, #111111, #000000);
+            animation: pulse 4s ease-in-out infinite;
+            z-index: -1;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 1; }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Glitch effect */
+        .glitch {
+            position: relative;
+            animation: glitch 2s infinite;
+        }
+
+        @keyframes glitch {
+            0%, 100% { transform: translateX(0); }
+            10% { transform: translateX(-2px); }
+            20% { transform: translateX(2px); }
+            30% { transform: translateX(-2px); }
+            40% { transform: translateX(2px); }
+            50% { transform: translateX(0); }
+        }
+
+        /* Navigation */
+        .nav-container {
+            background: linear-gradient(135deg, #ff00ff22, #00ffff22);
+            border: 2px solid #00ff88;
+            border-radius: 0;
+            padding: 20px;
+            margin-bottom: 40px;
+            box-shadow: 
+                0 0 20px #00ff88,
+                inset 0 0 20px rgba(0, 255, 136, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, #00ff8844, transparent);
+            animation: scan 3s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes scan {
+            0% { transform: translateX(-100%) translateY(-100%); }
+            100% { transform: translateX(100%) translateY(100%); }
+        }
+
+        .nav-title {
+            color: #ff00ff;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.2em;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 0 0 10px #ff00ff;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 1;
+        }
+
+        .nav-btn {
+            background: linear-gradient(45deg, #ff00ff, #00ffff);
+            color: #000;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 0;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 15px rgba(255, 0, 255, 0.5);
+        }
+
+        .nav-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(255, 0, 255, 0.8);
+            animation: neon-flicker 0.5s infinite alternate;
+        }
+
+        @keyframes neon-flicker {
+            0% { text-shadow: 0 0 5px #fff; }
+            100% { text-shadow: 0 0 10px #fff, 0 0 15px #fff; }
+        }
+
+        /* Header - Hexagonal layout */
+        .header {
+            background: linear-gradient(135deg, #ff00ff22, #00ffff22);
+            border: 2px solid #00ffff;
+            padding: 60px 40px;
+            text-align: center;
+            margin-bottom: 40px;
+            clip-path: polygon(0 20px, 20px 0, calc(100% - 20px) 0, 100% 20px, 100% calc(100% - 20px), calc(100% - 20px) 100%, 20px 100%, 0 calc(100% - 20px));
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, #00ffff44, transparent);
+            animation: slide 2s linear infinite;
+        }
+
+        @keyframes slide {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 3px solid #00ff88;
+            margin-bottom: 30px;
+            object-fit: cover;
+            box-shadow: 0 0 30px #00ff88;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 15px;
+            color: #00ffff;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            text-shadow: 0 0 20px #00ffff;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header p {
+            color: #ff00ff;
+            font-size: 1.2em;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Sections - Card layout with different shapes */
+        .section {
+            background: linear-gradient(135deg, #111111, #222222);
+            border: 2px solid #00ff88;
+            padding: 40px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+        }
+
+        .section:nth-child(even) {
+            border-color: #ff00ff;
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.3);
+            clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px));
+        }
+
+        .section:nth-child(odd) {
+            border-color: #00ffff;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+            clip-path: polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px);
+        }
+
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(0, 255, 136, 0.05), transparent);
+            animation: matrix 5s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes matrix {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+
+        .section h2 {
+            color: #00ffff;
+            margin-bottom: 25px;
+            font-size: 2em;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 0 0 15px #00ffff;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section:nth-child(even) h2 {
+            color: #ff00ff;
+            text-shadow: 0 0 15px #ff00ff;
+        }
+
+        .highlight {
+            color: #00ff88;
+            font-weight: 700;
+            text-shadow: 0 0 10px #00ff88;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 10px #00ff88; }
+            to { text-shadow: 0 0 20px #00ff88, 0 0 30px #00ff88; }
+        }
+
+        .intro-text {
+            font-size: 1.1em;
+            line-height: 1.8;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Lists */
+        ul {
+            list-style: none;
+            padding: 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        li {
+            background: rgba(0, 255, 136, 0.1);
+            padding: 15px 20px;
+            margin-bottom: 10px;
+            border-left: 4px solid #00ff88;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        li:hover {
+            background: rgba(0, 255, 136, 0.2);
+            transform: translateX(10px);
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.5);
+        }
+
+        li::before {
+            content: '>';
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #00ff88;
+            font-weight: 700;
+        }
+
+        li {
+            padding-left: 40px;
+        }
+
+        /* Gallery - Hexagonal grid */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .gallery-item {
+            background: linear-gradient(135deg, #111111, #222222);
+            border: 2px solid #ff00ff;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            position: relative;
+            clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(255, 0, 255, 0.8);
+            animation: rotate 1s ease-in-out;
+        }
+
+        @keyframes rotate {
+            0%, 100% { transform: scale(1.05) rotate(0deg); }
+            50% { transform: scale(1.05) rotate(5deg); }
+        }
+
+        .gallery-img {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(45deg, #ff00ff, #00ffff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #000;
+            font-size: 3em;
+            font-weight: 700;
+        }
+
+        .gallery-caption {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .gallery-title {
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #00ffff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .gallery-caption p {
+            color: #00ff88;
+            font-size: 0.9em;
+        }
+
+        /* Contact - Terminal style */
+        .contact-info {
+            background: #000;
+            border: 2px solid #00ff88;
+            padding: 20px;
+            font-family: 'Courier New', monospace;
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact-info::before {
+            content: 'SYSTEM > CONTACT_INFO.EXE';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            background: #00ff88;
+            color: #000;
+            padding: 5px 10px;
+            font-size: 0.8em;
+            font-weight: 700;
+        }
+
+        .contact-item {
+            margin-bottom: 15px;
+            color: #00ff88;
+        }
+
+        .contact-item strong {
+            color: #ff00ff;
+            display: inline-block;
+            width: 120px;
+            text-transform: uppercase;
+        }
+
+        .contact-link {
+            color: #00ffff;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+
+        .contact-link:hover {
+            color: #fff;
+            text-shadow: 0 0 10px #00ffff;
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, #222222, #111111);
+            border: 2px solid #ff00ff;
+            padding: 40px;
+            text-align: center;
+            margin-top: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                repeating-linear-gradient(
+                    90deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(255, 0, 255, 0.1) 2px,
+                    rgba(255, 0, 255, 0.1) 4px
+                );
+            animation: scan-lines 2s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes scan-lines {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+
+        .footer p {
+            margin-bottom: 15px;
+            color: #00ff88;
+            position: relative;
+            z-index: 1;
+        }
+
+        .back-to-top {
+            background: linear-gradient(45deg, #00ffff, #ff00ff);
+            color: #000;
+            border: none;
+            padding: 15px 30px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .back-to-top:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.8);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .section {
+                padding: 30px 20px;
+                clip-path: none;
+            }
+            
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+            
+            .gallery-item {
+                clip-path: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Navigation -->
+        <div class="nav-container">
+            <div class="nav-title glitch">System Navigation</div>
+            <div class="nav-buttons">
+                <a href="#about" class="nav-btn">About</a>
+                <a href="#interests" class="nav-btn">Interests</a>
+                <a href="#goals" class="nav-btn">Goals</a>
+                <a href="#gallery" class="nav-btn">Gallery</a>
+                <a href="#contact" class="nav-btn">Contact</a>
+            </div>
+        </div>
+
+        <!-- Header -->
+        <div class="header" id="about">
+            <img src="https://via.placeholder.com/150x150/00ff88/000000?text=USER" alt="Profile" class="profile-img">
+            <h1 class="glitch">About Me</h1>
+            <p>Welcome to my digital realm!</p>
+        </div>
+
+        <!-- Introduction -->
+        <div class="section">
+            <h2>Introduction</h2>
+            <p class="intro-text">Hello! My name is <span class="highlight">Your Name</span> and I am a student learning web development. Welcome to my cybernetic interface!</p>
+            <p class="intro-text">I am <span class="highlight">16 years old</span> and I love <span class="highlight">Web Development</span>. I am currently studying <span class="highlight">Web Technologies</span> and exploring the digital frontier.</p>
+        </div>
+
+        <!-- Interests -->
+        <div class="section" id="interests">
+            <h2>My Interests</h2>
+            <p>System processes I enjoy executing:</p>
+            <ul>
+                <li>Digital art and design synthesis</li>
+                <li>Learning new technologies</li>
+                <li>Creating and building systems</li>
+                <li>Neural network optimization</li>
+                <li>Code architecture development</li>
+            </ul>
+        </div>
+
+        <!-- Goals -->
+        <div class="section" id="goals">
+            <h2>My Goals</h2>
+            <p>Mission objectives for this cycle:</p>
+            <ul>
+                <li>Create a beautiful website with CSS</li>
+                <li>Deploy digital artwork online</li>
+                <li>Master web development basics</li>
+                <li>Build a portfolio interface</li>
+                <li>Connect with other developers</li>
+            </ul>
+        </div>
+
+        <!-- Gallery -->
+        <div class="section" id="gallery">
+            <h2>Photo Gallery</h2>
+            <p>Visual data representing my core processes:</p>
+            <div class="gallery">
+                <div class="gallery-item">
+                    <div class="gallery-img">🎨</div>
+                    <div class="gallery-caption">
+                        <div class="gallery-title">Digital Art</div>
+                        <p>Creative algorithm output</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-img">💻</div>
+                    <div class="gallery-caption">
+                        <div class="gallery-title">Workspace</div>
+                        <p>Command center operations</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-img">💡</div>
+                    <div class="gallery-caption">
+                        <div class="gallery-title">Inspiration</div>
+                        <p>Creative process catalyst</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Fun Facts -->
+        <div class="section">
+            <h2>System Data</h2>
+            <ul>
+                <li>Favorite color frequency: <span class="highlight">Ocean Blue</span></li>
+                <li>Coding runtime: <span class="highlight">2 years</span></li>
+                <li>Primary art tool: <span class="highlight">Procreate</span></li>
+                <li>Portfolio location: <span class="highlight">Dev Portfolio Lady</span></li>
+                <li>Pet preference: <span class="highlight">Cats and Dogs</span></li>
+            </ul>
+        </div>
+
+        <!-- Resources -->
+        <div class="section">
+            <h2>Data Sources</h2>
+            <p>Educational databases accessed:</p>
+            <ul>
+                <li><a href="#" class="contact-link">W3Schools - HTML Tutorial</a></li>
+                <li><a href="#" class="contact-link">MDN Web Docs</a></li>
+                <li><a href="#" class="contact-link">Codecademy</a></li>
+                <li><a href="#" class="contact-link">FreeCodeCamp</a></li>
+            </ul>
+        </div>
+
+        <!-- Contact -->
+        <div class="section" id="contact">
+            <h2>Contact Protocol</h2>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <strong>Email:</strong> <a href="mailto:info@email.com" class="contact-link">info@email.com</a>
+                </div>
+                <div class="contact-item">
+                    <strong>School:</strong> <span class="highlight">Your School Name</span>
+                </div>
+                <div class="contact-item">
+                    <strong>Networks:</strong> 
+                    <a href="#" class="contact-link">Twitter</a> | 
+                    <a href="#" class="contact-link">Instagram</a> | 
+                    <a href="#" class="contact-link">GitHub</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Coming Soon -->
+        <div class="section">
+            <h2>Upcoming Updates</h2>
+            <p>Next cycle will implement advanced CSS protocols!</p>
+            <p>Gallery module will showcase digital art collections.</p>
+            <p>Interactive contact form system deployment planned.</p>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>This interface was created by <span class="highlight">Your Name</span> as part of web development training protocol.</p>
+            <p>Last system update: <span class="highlight">Today's Date</span></p>
+            <a href="#" class="back-to-top">Return to Top</a>
+        </div>
+    </div>
+
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Random glitch effect
+        function randomGlitch() {
+            const glitchElements = document.querySelectorAll('.glitch');
+            glitchElements.forEach(el => {
+                if (Math.random() < 0.1) {
+                    el.style.animation = 'glitch 0.3s ease-in-out';
+                    setTimeout(() => {
+                        el.style.animation = 'glitch 2s infinite';
+                    }, 300);
+                }
+            });
+        }
+
+        setInterval(randomGlitch, 2000);
+    </script>
+</body>
+</html>
